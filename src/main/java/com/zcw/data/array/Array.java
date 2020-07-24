@@ -1,5 +1,7 @@
 package com.zcw.data.array;
 
+import org.omg.CORBA.Object;
+
 /**
  * @ClassName : Array
  * @Description : 二次封装数组
@@ -67,6 +69,9 @@ public class Array<E>{
     public void add(int index,E e){
         if(size == data.length){
             throw new IllegalArgumentException("Add failed.Array is full.");
+        }
+        if(size == data.length){
+            resize(2* data.length);
         }
         if(index <0 || index >size){
             throw new IllegalArgumentException("Add failed. Require inedex >=0  and index <=size");
@@ -163,6 +168,10 @@ public class Array<E>{
         size --;
         // loitering objects != memory leak
         data[size]=null;
+
+        if(size == data.length/4 && data.length /2 !=0){
+            resize(data.length/2);
+        }
         return ret;
     }
 
@@ -192,5 +201,12 @@ public class Array<E>{
         if(index !=-1){
             remove(index);
         }
+    }
+    private void resize(int newCapacity){
+        E[] newData = (E[])new Object[newCapacity];
+        for(int i=0; i<size;i++){
+            newData[i] =data[i];
+        }
+        data = newData;
     }
 }
