@@ -26,10 +26,10 @@ public class LinkedList<E> {
             return e.toString();
         }
     }
-    private Node head;
+    private Node dummyHead;
     private int size;
     public LinkedList(){
-        head = null;
+        dummyHead = new Node(null,null);
         size=0;
     }
     /**
@@ -51,8 +51,7 @@ public class LinkedList<E> {
 //        Node node = new Node(e);
 //        node.next = head;
 //        head = node;
-        head = new Node(e,head);
-        size ++;
+       add(0,e);
     }
     /**
      * 在链表的index(0-based)位置添加新的e
@@ -62,18 +61,16 @@ public class LinkedList<E> {
         if(index <0 || index >size){
             throw new IllegalArgumentException("Add failed. Illegal index.");
         }
-        if(index ==0){
-            addFirst(e);
-        }else{
-            Node prev = head;
-            for(int i=0;i<index-1;i++){
+
+            Node prev = dummyHead;
+            for(int i=0;i<index;i++){
                 prev = prev.next;
             }
             Node node = new Node(e);
             node.next = prev.next;
             prev.next = node;
             size ++;
-        }
+
     }
    //在链表末尾添加新的元素e
    public void addLast(E e){
