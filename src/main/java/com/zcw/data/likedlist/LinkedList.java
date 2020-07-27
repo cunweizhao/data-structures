@@ -132,6 +132,33 @@ public class LinkedList<E> {
         return res.toString();
     }
 
+    /**
+     *从链表中删除index(0-based)位置的元素，
+     * 返回删除的元素，在链表中不是一个常用的操作
+     */
+    public E remove(int index){
+        if(index <0|| index >=size){
+            throw new IllegalArgumentException("Remove failed. Index is illegal.");
+        }
+        Node prev =dummyHead;
+        for(int i =0 ; i<index; i++){
+            prev = prev.next;
+        }
+        Node retNode = prev.next;
+        prev.next =retNode.next;
+        retNode.next = null;
+        size--;
+        return  retNode.e;
+    }
+    //从链表中删除第一个元素，返回删除的元素
+    public E removeFirst(){
+        return remove(0);
+    }
+    //链表中删除最后 一个元素
+    public E removeLast(){
+        return remove(size-1);
+    }
+
     public static void main(String[] args) {
         LinkedList<Integer> linkedList = new LinkedList<>();
         for(int i=0; i<5;i++){
@@ -139,6 +166,13 @@ public class LinkedList<E> {
             System.out.println(linkedList);
         }
         linkedList.add(2,666);
+        System.out.println(linkedList);
+
+
+        linkedList.removeFirst();
+        System.out.println(linkedList);
+
+        linkedList.removeLast();
         System.out.println(linkedList);
     }
 }
