@@ -156,6 +156,45 @@ public class BST<E extends Comparable<E>> {
         return res.toString();
     }
 
+    /**
+     *二分搜索树的中序遍历
+     */
+    public void inOrder(){
+        inOrder(root);
+    }
+
+    /**
+     *中序遍历以node为根的二分搜索树，递归算法
+     */
+    private void inOrder(Node node){
+        if(node == null){
+            return;
+        }
+        inOrder(node.left);
+        System.out.println(node.e);
+        inOrder(node.right);
+    }
+
+    /**
+     * 二分搜索树的后序遍历
+     */
+    public void postOrder(){
+        preOrder(root);
+    }
+
+    /**
+     * 后序遍历以node为根的二分搜索树，递归算法
+     */
+    private void postOrder(Node node){
+        if(node == null){
+            return;
+        }
+        postOrder(node.left);
+        postOrder(node.right);
+        System.out.println(node.e);
+    }
+
+
     public static void main(String[] args) {
         BST<Integer> bst = new BST<>();
         int[] nums ={5,3,6,8,4,2};
@@ -172,6 +211,12 @@ public class BST<E extends Comparable<E>> {
         bst.preOrder();
         System.out.println();
 
-        System.out.println(bst);
+//        System.out.println(bst);
+        bst.inOrder();
+        System.out.println();
+
+
+        bst.preOrder();
+        System.out.println();
     }
 }
