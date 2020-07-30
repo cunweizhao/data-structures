@@ -7,6 +7,25 @@ package com.zcw.data.likedlist;
  * @Date: 2020-07-27 15:34
  */
 public class LinkedList<E> {
+    /**
+     * 从列表中删除元素e
+     * @param e
+     */
+    public void removeElement(E e) {
+      Node prev = dummyHead;
+      while(prev.next !=null){
+          if(prev.next.e.equals(e)){
+              break;
+          }
+          prev = prev.next;
+      }
+      if( prev.next !=null){
+          Node delNode = prev.next;
+          prev.next = delNode.next;
+          delNode.next = null;
+      }
+    }
+
     private class Node{
         public E e;
         public Node next;
