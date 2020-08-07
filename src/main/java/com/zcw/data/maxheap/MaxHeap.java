@@ -2,6 +2,8 @@ package com.zcw.data.maxheap;
 
 import com.zcw.data.array.Array;
 
+import java.util.Random;
+
 /**
  * @ClassName : MaxHeap
  * @Description : 实现最大堆
@@ -55,5 +57,56 @@ public class MaxHeap<E extends Comparable<E>> {
             k = parent(k);
         }
 
+    }
+    //看堆中的最大元素
+    public E findMax(){
+        if(data.getSize() ==0){
+            throw  new IllegalArgumentException("Can not findMax when heap is empty.");
+        }
+        return data.get(0);
+    }
+    //取出堆中最大元素
+    public E extractMax(){
+        E ret = findMax();
+
+        data.swap(0,data.getSize() -1);
+        data.removeLast();
+
+        siftDown(0);
+        return ret;
+    }
+    //下沉操作
+    private void siftDown(int k){
+        while(leftChild(k) < data.getSize()){
+            int j = leftChild(k);
+            if(j +1< data.getSize() && data.get(j+1).compareTo(data.get(j))>0){
+                j= rightChild(k);
+            }
+            // data[j] 是 leftChild 和 rightChild 中的最大值
+            if(data.get(k).compareTo(data.get(j)) >= 0){
+                break;
+            }
+            data.swap(k,j);
+            k = j;
+        }
+    }
+
+    public static void main(String[] args) {
+        int n = 100000;
+        MaxHeap<Integer> maxHeap = new MaxHeap<>();
+        Random random = new Random();
+        for(int i = 0;i<n;i++){
+            maxHeap.add(random.nextInt(Integer.MAX_VALUE));
+        }
+        int[] arr = new int[n];
+        for(int i =0;i<n;i++){
+            arr[i] = maxHeap.extractMax();
+        }
+        for(int i =1;i<n;i++){
+            if(arr[i-1] <arr[i]){
+                throw  new IllegalArgumentException("Error");
+            }
+        }
+        System.out.println("Test MaxHeap completed.");
     }
 }
