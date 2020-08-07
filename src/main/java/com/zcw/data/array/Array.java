@@ -30,7 +30,13 @@ public class Array<E>{
     public Array(){
         this(10);
     }
-
+    public Array(E[] arr){
+        data =(E[])new Object[arr.length];
+        for(int i=0;i<arr.length;i++){
+            data[i]= arr[i];
+        }
+        size = arr.length;
+    }
     //获取数组中的元素的个数
     public int getSize(){
         return size;
@@ -100,7 +106,7 @@ public class Array<E>{
      * @param index
      * @param e
      */
-    void set(int index, E e){
+    public void set(int index, E e){
         if(index <0 || index >=size){
             throw new IllegalArgumentException();
         }
